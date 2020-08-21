@@ -7,7 +7,6 @@ const options = {
     origin: "https://speedpaste.netlify.app"
 }
 const CryptoJS = require("crypto-js");
-const AES = require("crypto-js/aes");
 
 const db = require("../data/dbconfig");
 server.use(express.json());
@@ -24,7 +23,7 @@ server.get("/copy/:token", (req, res) => {
 })
 server.post("/pasting", (req, res) => {
     const pastedText = JSON.stringify(req.body.text).slice(0, 36);
-    const token = CryptoJS.AES.encrypt(req.body.text, Math.random()).toString().replace(/\//g, "")
+    const token = CryptoJS.AES.encrypt(req.body.text, `${Math.random()}`).toString().replace(/\//g, "")
     db.addText(pastedText, token)
         .then(() => {
             axiosWithAuth
