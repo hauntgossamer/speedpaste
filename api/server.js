@@ -5,7 +5,7 @@ const bcrypt = require("bcryptjs");
 const axiosWithAuth = require("../utils/axiosWithAuth").axiosWithAuth()
 const server = express();
 const options = {
-    origin: "http://localhost:3000"
+    origin: "https://speedpaste.netlify.app"
 }
 const CryptoJS = require("crypto-js");
 const AES = require("crypto-js/aes");
