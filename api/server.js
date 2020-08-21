@@ -25,7 +25,7 @@ server.get("/copy/:token", (req, res) => {
 })
 server.post("/pasting", (req, res) => {
     const pastedText = JSON.stringify(req.body.text);
-    const token = aesjs.utils.utf8.toBytes(req.body.text).toString().replace(",", "")
+    const token = aesjs.utils.utf8.toBytes(req.body.text).toString().replace(/,/g, "")
     console.log(token)
     console.log(pastedText)
     db.addText(pastedText, token)
