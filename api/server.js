@@ -1,14 +1,12 @@
 const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
-const bcrypt = require("bcryptjs");
 const axiosWithAuth = require("../utils/axiosWithAuth").axiosWithAuth()
 const server = express();
 const options = {
     origin: "https://speedpaste.netlify.app"
 }
-const CryptoJS = require("crypto-js");
-const AES = require("crypto-js/aes");
+const aesjs = require('aes-js');
 
 const db = require("../data/dbconfig");
 server.use(express.json());
@@ -27,9 +25,9 @@ server.get("/copy/:token", (req, res) => {
 })
 server.post("/pasting", (req, res) => {
     const pastedText = JSON.stringify(req.body.text);
-    console.log(JSON.stringify(req.body.text))
-    const token = CryptoJS.AES.encrypt(pastedText, 'If you\'re good at something, never do it for free').toString().replace("/", "")
+    const token = aesjs.utils.utf8.toBytes(req.body.text).toString().replace("/", "")
     console.log(token)
+    console.log(pastedText)
     db.addText(pastedText, token)
         .then(() => {
             axiosWithAuth
