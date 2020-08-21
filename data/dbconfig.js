@@ -5,7 +5,7 @@ module.exports = { getText: (token) => {
         .select("text")
         .from("pastedText")
         .where({token: token})
-        .first()
+        // .first()
 }, addText: (text, token) => {
     return db("pastedText")
         .insert({text, token})

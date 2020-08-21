@@ -19,16 +19,12 @@ server.get("/", (req, res) => {
 server.get("/copy/:token", (req, res) => {
     db.getText(req.params.token)
         .then(text => {
-            console.log(text)
-            console.log("params:",req.params.token, "text:", JSON.parse(text.text))
-            res.status(200).json({text: `${JSON.parse(text.text)}`})})
+            res.status(200).json({text: `${ text ? JSON.parse(text.text) : ""}`})})
         .catch(err => res.status(400).json({ error: err.message }))
 })
 server.post("/pasting", (req, res) => {
     const pastedText = JSON.stringify(req.body.text).slice(0, 36);
     const token = CryptoJS.AES.encrypt(req.body.text, Math.random()).toString().replace(/\//g, "")
-    console.log(token)
-    console.log(pastedText)
     db.addText(pastedText, token)
         .then(() => {
             axiosWithAuth
