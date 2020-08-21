@@ -2,8 +2,8 @@
 exports.up = function(knex) {
     return knex.schema.createTable("pastedText", tbl => {
         tbl.increments("textId")
-        tbl.string("text")
-        tbl.string("token")
+        tbl.text("text")
+        tbl.text("token")
             .unique()
             .notNullable()
     })
