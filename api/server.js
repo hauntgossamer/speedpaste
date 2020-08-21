@@ -5,7 +5,7 @@ const bcrypt = require("bcryptjs");
 const axiosWithAuth = require("../utils/axiosWithAuth").axiosWithAuth()
 const server = express();
 const options = {
-    origin: "http://localhost:3000"
+    origin: "https://speedpaste.netlify.app"
 }
 const CryptoJS = require("crypto-js");
 const AES = require("crypto-js/aes");
@@ -19,7 +19,10 @@ server.get("/", (req, res) => {
 });
 server.get("/copy/:token", (req, res) => {
     db.getText(req.params.token)
-        .then(text => res.status(200).json(text))
+        .then(text => {
+            console.log(req.params.token, text)
+            res.status(200).json(text)})
+        .catch(err => res.status(400).json({ text: err.message }))
 })
 server.post("/pasting", (req, res) => {
     const pastedText = req.body.text;

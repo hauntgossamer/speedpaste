@@ -3,7 +3,8 @@ const db = require("../knexconfig");
 module.exports = { getText: (token) => {
     return db("pastedText")
         .select("text")
-        .where({token})
+        .from("pastedText")
+        .where({token: token})
         .first()
 }, addText: (text, token) => {
     return db("pastedText")
