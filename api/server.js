@@ -36,7 +36,7 @@ server.post("/pasting", (req, res) => {
                     "long_url": `https://speedpaste.netlify.app/copying/${token}`,
                     "domain": "bit.ly",
                 })
-                .then(ans => res.status(200).json({ link: ans.data }))
+                .then(ans => res.status(200).json({ link: ans.data.link }))
                 .catch(err => res.status(400).json({err}))
         })
         .catch(err => res.status(400).json(err))
