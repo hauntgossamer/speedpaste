@@ -21,11 +21,11 @@ server.get("/copy/:token", (req, res) => {
     db.getText(req.params.token)
         .then(text => {
             console.log(req.params.token, text)
-            res.status(200).json(text)})
+            res.status(200).json({text: `${JSON.parse(text)}`})})
         .catch(err => res.status(400).json({ text: err.message }))
 })
 server.post("/pasting", (req, res) => {
-    const pastedText = req.body.text;
+    const pastedText = JSON.stringify(req.body.text);
     console.log(pastedText)
     const token = CryptoJS.AES.encrypt(pastedText, 'If you\'re good at something, never doit for free').toString()
     db.addText(pastedText, token)
