@@ -1,7 +1,6 @@
 const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
-const bcrypt = require("bcryptjs");
 const axiosWithAuth = require("../utils/axiosWithAuth").axiosWithAuth()
 const server = express();
 const options = {
@@ -27,7 +26,7 @@ server.get("/copy/:token", (req, res) => {
 })
 server.post("/pasting", (req, res) => {
     const pastedText = JSON.stringify(req.body.text).slice(0, 36);
-    const token = CryptoJS.AES.encrypt(req.body.text, 'If you\'re good at something, never do it for free').toString().replace(/\//g, "")
+    const token = CryptoJS.AES.encrypt(req.body.text, Math.random()).toString().replace(/\//g, "")
     console.log(token)
     console.log(pastedText)
     db.addText(pastedText, token)
