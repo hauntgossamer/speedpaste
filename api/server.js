@@ -18,7 +18,7 @@ server.get("/", (req, res) => {
 server.get("/copy/:token", (req, res) => {
     db.getText(req.params.token)
         .then(text => {
-            res.status(200).json({text: `${ text ? JSON.parse(text.text) : ""}`})})
+            res.status(200).json({text: `${ text ? JSON.parse(text.text) : "does not exist"}`})})
         .catch(err => res.status(400).json({ error: err.message }))
 })
 server.post("/pasting", (req, res) => {
