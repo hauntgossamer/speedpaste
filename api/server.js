@@ -4,7 +4,7 @@ const helmet = require("helmet");
 const axiosWithAuth = require("../utils/axiosWithAuth").axiosWithAuth()
 const server = express();
 const options = {
-    origin: "https://speedpaste-backend.netlify.app"
+    origin: "https://speedpaste.netlify.app"
 }
 const CryptoJS = require("crypto-js");
 
