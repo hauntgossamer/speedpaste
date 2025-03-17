@@ -4,7 +4,7 @@ const helmet = require("helmet");
 const axiosWithAuth = require("../utils/axiosWithAuth").axiosWithAuth()
 const server = express();
 const options = {
-    origin: "https://speedpaste.netlify.app"
+    origin: "https://speedpaste-backend.netlify.app"
 }
 const CryptoJS = require("crypto-js");
 
@@ -29,7 +29,7 @@ server.post("/pasting", (req, res) => {
         .then(() => {
             axiosWithAuth
                 .post("/shorten", {
-                    "long_url": `https://speedpaste.netlify.app/copying/${token}`,
+                    "long_url": `https://speedpaste-backend.netlify.app/copying/${token}`,
                     "domain": "bit.ly",
                 })
                 .then(ans => res.status(200).json({ link: ans.data.link, token }))
